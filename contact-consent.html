@@ -211,9 +211,9 @@
                 let purposes = "";
                 console.log("PG " + i, pg.Purposes);
                 for (var j in pg.Purposes) {
-                    purposes += "<p>" + pg.Purposes[j].DataUseText + " " + pg.Purposes[j].DataUse +
+                    purposes += "<p>" + pg.Purposes[j].DataUseText + " " + pg.Purposes[j].DataPurpose +
                         "</p><p class='blu'>" + pg.Purposes[j].DataPurposeText +
-                        " " + pg.Purposes[j].DataPurpose + "</p>";
+                        " " + pg.Purposes[j].DataUse + "</p>";
                 }
                 let p = document.createElement('li');
                 p.innerHTML = purposes + "<br />";
