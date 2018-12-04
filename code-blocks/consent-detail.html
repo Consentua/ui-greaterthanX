@@ -1,0 +1,123 @@
+<div id="container">
+<!-- Consentua webSDK -->
+<div id="contact-consent-contain">
+    <iframe id="contact-consent"></iframe>
+</div>
+<div id="item-container">
+    <div class="item">
+        <div class="item-title">Why we’d like to process your data?</div>
+        <p class="item-body">So we can share insights from our work at the intersection of data ethics, privacy and
+            design.</p>
+    </div>
+    <div class="item">
+        <div class="item-title">Are we making automated decisions?</div>
+        <p class="item-body">No we are not. In fact, we’re pretty clear about that in our <a href="https://www.greaterthanexperience.design/privacy-policy">privacy notice.</a> Check
+            it out!</p>
+    </div>
+    <div class="item">
+        <div class="item-title">What data are we asking for?</div>
+        <p class="item-body">Just your <b>email</b>. We don’t need to know your name to send you insights. Data
+            minimisation…</p>
+    </div>
+    <div class="item">
+        <div class="item-title">Do I have a consent record?</div>
+        <p class="item-body">Yes you do. It’s <>
+        </p>
+    </div>
+    <div class="item">
+        <div class="item-title">Are we relying on third party services?</div>
+        <p class="item-body">Yes we are. In this case we’re using GSuite. Our Founder and CEO, Nathan Kinch, will be
+            sending the fortnightly emails directly.
+            <br>There’s more info on the tools we use and the data we process in our privacy notice. It reads at a
+            Grade 5 level, so no need to shy away.</p>
+    </div>
+    <div class="item">
+        <div class="item-title">Who is the data controller?</div>
+        <p class="item-body">The organisation deciding how this data is used is Voir Tous Investments Pty Ltd. We trade
+            as ‘Greater Than X’.
+            <br>You can contact us direct on <a href="mailto:privacy@greaterthanexperience.design">privacy@greaterthanexperience.design</a></p>
+    </div>
+    <div class="item">
+        <div class="item-title">How do I change my mind?</div>
+        <p class="item-body">At the bottom of every email we send there will be an unsubscribe link. Click it.
+            <br>We won’t then ask you any annoying questions about why you’re unsubscribing. It’ll just happen!</p>
+    </div>
+</div>
+<input id="consentua-uid" type="text" placeholder="Your consentua uid, normally would be hidden" />
+</div>
+<script src="https://websdk.consentua.com/websdk/consentua-embed.js.php" type="text/javascript"></script>
+<script>
+    var cid = "56"; // Customer ID
+    var sid = "102"; // Consentua service ID
+    var skey = "7d94f123-7fef-4bea-a9cc-4402540f58b4"; // Consentua service key
+    var tid = "95"; // Template ID
+    var uid = localStorage.getItem('consentua_uid') || false;
+    var cb_ready = function (msg) {
+        document.getElementById('consentua-uid').value = msg.message.uid;
+        localStorage.setItem('consentua_uid', msg.message.uid);
+    };
+    var cb_set = function (msg) {
+        console.log("Consent received from Consentua", msg);
+        alert("purpose group 97= " + JSON.stringify(msg.message.consents));
+    };
+    var iframe = document.getElementById('contact-consent');
+    // var cwrap = new ConsentuaUIWrapper(iframe, cid, uid, tid, sid, skey, function () {}, "en", {
+    //     ix: "https://ui.consentua.com/ui-greaterthanX/contact-consent.min.html"
+    // });
+    // var cwrap = new ConsentuaUIWrapper(iframe, cid, uid, tid, sid, skey, function () {}, "en", {
+    //     ix: "http://localhost:3000/plain-toggle-consent.html"
+    // });
+    var cwrap = new ConsentuaUIWrapper(iframe, cid, uid, tid, sid, skey, function () {}, "en", {
+        ix: "https://kni-test-node.herokuapp.com/plain-toggle-consent.html"
+    });
+    cwrap.onset = cb_set;
+    cwrap.onready = cb_ready;
+</script>
+<style>
+    #container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #contact-consent-contain {
+        margin: 0rem auto;
+    }
+
+    #contact-consent {
+        width: 100%;
+        border: none;
+        overflow: hidden;
+    }
+
+    #item-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    .item {
+        background: #fff;
+        border: 1px solid #2c41c6;
+        /* min-width: 200px; */
+        width: 485px;
+        margin: 1rem;
+    }
+
+    .item-body {
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .item-title {
+        text-align: center;
+        background: #2c41c6;
+        color: #fff;
+        display: inline-block;
+        padding: 1rem;
+        width: calc(100% - 2rem);
+    }
+
+    #id-icon {
+        max-width: 40px;
+    }
+</style>

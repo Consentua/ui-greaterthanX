@@ -1,0 +1,37 @@
+<!-- Consentua webSDK  -->
+<style>
+    #contact-consent-contain {
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            margin: 1rem auto;
+        }
+
+    #contact-consent {
+        width: 100%;
+        border: none;
+        overflow: hidden;
+    }
+</style>
+<script src="https://websdk.consentua.com/websdk/consentua-embed.js.php" type="text/javascript"></script>
+<div id="contact-consent-contain"><iframe id="contact-consent"></iframe></div>
+<script>
+var cid = "56"; // Customer ID
+    var sid = "102"; // Consentua service ID
+    var skey = "7d94f123-7fef-4bea-a9cc-4402540f58b4"; // Consentua service key
+    var tid = "95"; // Template ID
+    var uid = localStorage.getItem('consentua_uid') ||false;
+    var cb_ready = function (msg) {
+        document.getElementById('text-yui_3_17_2_1_1543423726960_22865-field').value = msg.message.uid;
+        localStorage.setItem('consentua_uid', msg.message.uid);
+    };
+    var cb_set = function (msg) {
+        console.log("Consent received from Consentua", msg);
+    };
+    var iframe = document.getElementById('contact-consent');
+    var cwrap = new ConsentuaUIWrapper(iframe, cid, uid, tid, sid, skey, function () {}, "en", {
+        ix: "https://ui.consentua.com/ui-greaterthanX/contact-consent.min.html"
+    });
+    cwrap.onset = cb_set;
+    cwrap.onready = cb_ready;
+</script>
