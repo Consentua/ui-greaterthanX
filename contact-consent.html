@@ -7,10 +7,6 @@
     <script src="https://websdk.consentua.com/websdk/comms.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Open+Sans" rel="stylesheet" />
     <style>
-        :root {
-            --main-color: #2c41c6;
-        }
-
         body {
             font-family: 'Open Sans'sans-serif;
             font-family: Open Sans;
@@ -38,7 +34,7 @@
             text-rendering: optimizeLegibility;
             font-weight: 300;
             text-align: center;
-            color: var(--main-color, #2c41c6);
+            color: #2c41c6;
         }
 
         h1 {
@@ -61,7 +57,7 @@
 
         a,
         a:visited {
-            color: var(--main-color, #2c41c6);
+            color: #2c41c6;
             text-decoration: underline;
         }
 
@@ -80,7 +76,7 @@
 
         #id-icon {
             display: block;
-            border: 3px dotted var(--main-color, #2c41c6);
+            border: 3px dotted #2c41c6;
             border-radius: 50%;
             padding: 1rem;
             background: rgba(44, 65, 198, 0.1);
@@ -178,7 +174,7 @@
         }
 
         .blu {
-            color: var(--main-color, #2c41c6);
+            color: #2c41c6;
         }
     </style>
 </head>
@@ -200,7 +196,7 @@
             </div>
             <ol id="purposes"></ol>
         </section>
-        <a>See full details</a>
+        <a target="_blank" href="https://www.greaterthanexperience.design/consent-details-demo">See full details</a>
     </main>
     <script>
         document.body.addEventListener("consentua-ready", function () {
@@ -218,10 +214,11 @@
                 let p = document.createElement('li');
                 p.innerHTML = purposes + "<br />";
                 document.getElementById('purposes').appendChild(p);
+                document.getElementById('cb').checked = window.consentua.getConsent()[i].consent;
                 window.consentua.ready();
             }
             // on consent change
-            document.getElementById('cb').addEventListener('change', (event) => {
+            document.getElementById('cb').addEventListener('change', function(event){
                 var groups = window.consentua.template.PurposeGroups;
                 var groupids = [];
                 for (var i in groups) {
